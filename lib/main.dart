@@ -28,15 +28,16 @@ class Home extends StatelessWidget {
             ),
           ),
           /*Image(
-            *//* This was from web
+            */ /* This was from web
             image: NetworkImage(
-            
+
                 "https://images.ctfassets.net/kq1hxg0iw5cx/SMmVLMchPRCsBZXMwePFa/3efe7e2e3fbd2733eff1dc4ba7fc5165/banner__1_.png"),
-          ),*//*
+          ),*/ /*
             image: AssetImage('assets/netflix_logo.png'),
           )*/
-              Image.asset('assets/netflix_logo.png'),
-              Image.network('https://images.ctfassets.net/kq1hxg0iw5cx/SMmVLMchPRCsBZXMwePFa/3efe7e2e3fbd2733eff1dc4ba7fc5165/banner__1_.png')
+          Image.asset('assets/netflix_logo.png'),
+          Image.network(
+              'https://images.ctfassets.net/kq1hxg0iw5cx/SMmVLMchPRCsBZXMwePFa/3efe7e2e3fbd2733eff1dc4ba7fc5165/banner__1_.png')
         ])),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.red[600],
