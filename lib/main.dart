@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.red[600]),
         body: Center(
-            child: Row(children: <Widget>[
+            child: Column(children: <Widget>[
           Text(
             'hello, ninjas!',
             style: TextStyle(
