@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'Fruit.dart';
 import 'route_generator.dart';
 
@@ -503,14 +506,15 @@ class _LoginState extends State<Login> {
                                     hintText: "Password",
                                     fillColor: Colors.black,
                                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))),
-                              )
+                              ),
+                              TextButton(onPressed:(){Navigator.pushNamed(context, '/call_http');}, child: Text("Call http")),
                             ],
                           ),
                         ),
                       ),
                     ),
-                  )
-                ],
+                  ),
+                 ],
               )),
         ));
   }
@@ -598,4 +602,47 @@ class _AutocompleteExampleState extends State<AutocompleteExample> {
     );
   }
 }
+
+class GetDataFromHttp extends StatefulWidget {
+  const GetDataFromHttp({Key? key}) : super(key: key);
+
+  @override
+  State<GetDataFromHttp> createState() => _GetDataFromHttpState();
+}
+
+class _GetDataFromHttpState extends State<GetDataFromHttp> {
+
+  void getData() async {
+    var url = Uri.https('jsonplaceholder.typicode.com','/todos/101');
+    var response = await http.get(url);
+
+    print(response.body);
+  }
+
+  void postData() async {
+    var client = http.Client();
+    var response = await client.post(
+        Uri.https('jsonplaceholder.typicode.com', 'posts'),
+        body: {
+          "title": 'foo',
+          "body": 'bar',
+          "userId": '1',
+        });
+    print(response.body);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+
+    postData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
 

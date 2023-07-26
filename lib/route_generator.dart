@@ -23,6 +23,8 @@ class RouteGenerator {
           return MaterialPageRoute(builder: (context) => Login(ans: args));
         }
         return _errorRoutes();
+      case '/call_http':
+        return MaterialPageRoute(builder: (context) => GetDataFromHttp());
       default:
         return _errorRoutes();
     }
