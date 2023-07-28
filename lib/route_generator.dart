@@ -2,6 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'package:flutter/services.dart';
+import 'Pages/Login.dart';
+import 'Pages/SecondPage.dart';
+import 'Pages/Calculator.dart';
+import 'Pages/GetDataFromHttp.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
