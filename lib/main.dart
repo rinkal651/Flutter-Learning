@@ -156,7 +156,7 @@ class BasicWidgetClass extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => const secondPage()),
             );*/
-            Navigator.of(context).pushNamed('/second');
+            Navigator.of(context).pushNamed('/image_animation');
           },
           child: Text('click'),
         ),
