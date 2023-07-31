@@ -8,6 +8,7 @@ import 'Pages/Calculator.dart';
 import 'Pages/GetDataFromHttp.dart';
 import 'Pages/GetDataFromFireStore.dart';
 import 'Pages/ImageAnimation.dart';
+import 'Pages/StateManagement.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -35,7 +36,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => GetDataFromFireStore());
       case '/image_animation':
         return MaterialPageRoute(builder: (context) => ImageAnimation());
+      case '/state_management':
+        return MaterialPageRoute(builder: (context) => StateManagement());
       default:
+        print(settings.name);
         return _errorRoutes();
     }
   }
