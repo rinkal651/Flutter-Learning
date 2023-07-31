@@ -7,10 +7,13 @@ import 'package:http/http.dart' as http;
 import 'Fruit.dart';
 import 'route_generator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseCrashlytics.instance.crash();
   runApp(const MaterialApp(
     home: GetDataFromFireStore(),
   ));
@@ -31,6 +34,17 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
   final CollectionReference _users =
       FirebaseFirestore.instance.collection('User');
 
+  logCrash() async{
+    FirebaseCrashlytics.instance.setCustomKey('custom_key', 'value');
+    await FirebaseCrashlytics.instance.recordError(
+        Error(),
+        null,
+        reason: 'Custom error',
+        // Pass in 'fatal' argument
+        fatal: true
+    );
+  }
+
   Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
     await showModalBottomSheet(
         isScrollControlled: true,
@@ -46,6 +60,7 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                TextButton(onPressed: logCrash, child: Text("Crash log")),
                 TextField(
                   controller: _nameController,
                   decoration: const InputDecoration(labelText: 'name'),
@@ -71,6 +86,7 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
 
                       _nameController.text = '';
                       _cityController.text = '';
+                      FirebaseAnalytics.instance.logEvent(name: 'Add user');
                       Navigator.of(context).pop();
                     }
                   },
@@ -127,6 +143,7 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
                           .update({"name": name, "City": city});
                       _nameController.text = '';
                       _cityController.text = '';
+                      FirebaseAnalytics.instance.logEvent(name: 'Update user');
                       Navigator.of(context).pop();
                     }
                   },
@@ -140,6 +157,7 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
   Future<void> _delete(String productId) async {
     await _users.doc(productId).delete();
 
+    FirebaseAnalytics.instance.logEvent(name: 'Delete user');
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('You have successfully deleted a product')));
   }
