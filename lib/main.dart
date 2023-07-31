@@ -13,7 +13,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseCrashlytics.instance.crash();
   runApp(const MaterialApp(
     home: GetDataFromFireStore(),
   ));
@@ -43,6 +42,7 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
         // Pass in 'fatal' argument
         fatal: true
     );
+    FirebaseCrashlytics.instance.crash();
   }
 
   Future<void> _create([DocumentSnapshot? documentSnapshot]) async {
@@ -60,7 +60,6 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextButton(onPressed: logCrash, child: Text("Crash log")),
                 TextField(
                   controller: _nameController,
                   decoration: const InputDecoration(labelText: 'name'),
@@ -90,7 +89,8 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
                       Navigator.of(context).pop();
                     }
                   },
-                )
+                ),
+                TextButton(onPressed: logCrash, child: Text("Crash log"))
               ],
             ),
           );
