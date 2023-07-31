@@ -63,6 +63,7 @@ class _GetDataFromHttpState extends State<GetDataFromHttp> {
   void initState() {
     super.initState();
     getData();
+    fetchUsers();
   }
 
   @override
@@ -105,8 +106,10 @@ class _GetDataFromHttpState extends State<GetDataFromHttp> {
             );
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: fetchUsers,
-      ),
+          child: Text(">"),
+          onPressed: () {
+            Navigator.pushNamed(context, '/get_firestore_data');
+          }),
     );
   }
 }

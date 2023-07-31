@@ -6,6 +6,7 @@ import 'Pages/Login.dart';
 import 'Pages/SecondPage.dart';
 import 'Pages/Calculator.dart';
 import 'Pages/GetDataFromHttp.dart';
+import 'Pages/GetDataFromFireStore.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -29,6 +30,8 @@ class RouteGenerator {
         return _errorRoutes();
       case '/call_http':
         return MaterialPageRoute(builder: (context) => GetDataFromHttp());
+      case '/get_firestore_data':
+        return MaterialPageRoute(builder: (context) => GetDataFromFireStore());
       default:
         return _errorRoutes();
     }
