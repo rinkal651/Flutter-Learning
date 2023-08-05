@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 class CalculatorApp extends StatefulWidget {
   const CalculatorApp({Key? key}) : super(key: key);
 
+  int add(int a, int b) {
+    return (a+b);
+  }
+
   @override
   State<CalculatorApp> createState() => _CalculatorAppState();
 }
@@ -74,7 +78,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                             fontSize: 20.0, fontWeight: FontWeight.w700))),
                     onPressed: () {
                       setState(() {
-                        ans = (int.parse(text1) + int.parse(text2)).toString();
+                        ans = (new CalculatorApp().add(int.parse(text1),int.parse(text2))).toString();
                       });
                     },
                     child: Text("+")),
