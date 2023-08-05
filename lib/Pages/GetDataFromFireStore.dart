@@ -152,48 +152,65 @@ class _GetDataFromFireStoreState extends State<GetDataFromFireStore> {
         appBar: AppBar(
           title: const Center(child: Text('Firebase Firestore')),
         ),
-        body: StreamBuilder(
-          stream: _users.snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-            if (streamSnapshot.hasData) {
-              return ListView.builder(
-                itemCount: streamSnapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  final DocumentSnapshot documentSnapshot =
-                      streamSnapshot.data!.docs[index];
-                  return Card(
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      title: Text(documentSnapshot['name']),
-                      subtitle: Text(documentSnapshot['City'].toString()),
-                      trailing: SizedBox(
-                        width: 100,
-                        child: Row(
-                          children: [
-                            IconButton(
-                                icon: const Icon(Icons.edit),
-                                onPressed: () => _update(documentSnapshot)),
-                            IconButton(
-                                icon: const Icon(Icons.delete),
-                                onPressed: () => _delete(documentSnapshot.id)),
-                          ],
+        body: Container(
+          child: Column(
+            children: [
+              TextButton(onPressed: _create,child: Text("Add User"), style: ButtonStyle(
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Colors.indigo,
+                    width: 1,
+                    style: BorderStyle.solid
+                  )
+                )
+              ),)),
+              StreamBuilder(
+              stream: _users.snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                if (streamSnapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: streamSnapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      final DocumentSnapshot documentSnapshot =
+                          streamSnapshot.data!.docs[index];
+                      return Card(
+                        margin: const EdgeInsets.all(10),
+                        child: ListTile(
+                          title: Text(documentSnapshot['name']),
+                          subtitle: Text(documentSnapshot['City'].toString()),
+                          trailing: SizedBox(
+                            width: 100,
+                            child: Row(
+                              children: [
+                                IconButton(
+                                    icon: const Icon(Icons.edit),
+                                    onPressed: () => _update(documentSnapshot)),
+                                IconButton(
+                                    icon: const Icon(Icons.delete),
+                                    onPressed: () => _delete(documentSnapshot.id)),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   );
-                },
-              );
-            }
+                }
 
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),],
+          ),
         ),
 // Add new product
         floatingActionButton: FloatingActionButton(
-          onPressed: () => _create(),
-          child: const Icon(Icons.add),
+          onPressed: (){
+            Navigator.pushNamed(context, '/app_localization');
+          },
+          child: const Icon(Icons.navigate_next),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat);
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'Pages/AppLocalization.dart';
 import 'main.dart';
 import 'package:flutter/services.dart';
 import 'Pages/Login.dart';
@@ -38,6 +39,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => ImageAnimation());
       case '/state_management':
         return MaterialPageRoute(builder: (context) => StateManagement());
+      case '/app_localization':
+        return MaterialPageRoute(builder: (context) => AppLocalization());
       default:
         print(settings.name);
         return _errorRoutes();
