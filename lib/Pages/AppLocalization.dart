@@ -1,6 +1,7 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_training/Pages/SharedPreferencesData.dart';
 
 class AppLocalization extends StatelessWidget {
   const AppLocalization({Key? key}) : super(key: key);
@@ -64,7 +65,10 @@ class LocalizeMessagePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(AppLocalizations.of(context)!.helloWorld),
+          Text(SharedPreferencesData.getUsername().toString()),
+          SizedBox(
+            height: 30,
+          ),Text(AppLocalizations.of(context)!.helloWorld),
           SizedBox(
             height: 30,
           ),

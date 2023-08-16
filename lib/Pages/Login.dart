@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'AutocompleteExample.dart';
+import 'SharedPreferencesData.dart';
 
 class Login extends StatefulWidget {
   final String ans;
@@ -22,6 +23,12 @@ class _LoginState extends State<Login> {
   ];
   String _gender = "";
   bool _isCheckBoxChecked = false;
+
+  saveUserNameToSharedPref(String email) async
+  {
+    await SharedPreferencesData.init();
+    await SharedPreferencesData.setUsername(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +78,7 @@ class _LoginState extends State<Login> {
                                 },
                                 onChanged: (value) {
                                   _formKey.currentState!.validate();
+                                  saveUserNameToSharedPref(value.toString());
                                 },
                                 decoration: InputDecoration(
                                     hintText: "Email",
